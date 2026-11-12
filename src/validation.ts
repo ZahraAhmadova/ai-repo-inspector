@@ -7,13 +7,14 @@ const MAX_BUFFER = 1024 * 1024;
 export function runValidation(
   command: string,
   cwd: string,
+  timeoutMs: number = TIMEOUT_MS,
 ): Promise<ValidationResult> {
   return new Promise((resolve) => {
     exec(
       command,
       {
         cwd,
-        timeout: TIMEOUT_MS,
+        timeout: timeoutMs,
         maxBuffer: MAX_BUFFER,
       },
       (error, stdout, stderr) => {

@@ -35,4 +35,13 @@ describe("validation execution", () => {
     expect(results[1].status).toBe("passed");
     expect(results[1].output).toContain("456");
   });
+  it("fails a command that exceeds the timeout", async () => {
+    const result = await runValidation(
+      'node -e "setTimeout(() => {}, 5000)"',
+      process.cwd(),
+      200,
+    );
+
+    expect(result.status).toBe("failed");
+  }, 10_000);
 });

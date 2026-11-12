@@ -13,7 +13,6 @@ server.tool(
   {
     repo_path: z.string().describe("Repository path to inspect."),
     baseRef: z.string().optional(),
-    validationCommands: z.array(z.string()).optional(),
   },
 async (input) => {
   const report = await reviewRepository(toReviewRequest(input));

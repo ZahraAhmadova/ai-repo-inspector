@@ -6,13 +6,23 @@ describe("MCP review input", () => {
     const result = toReviewRequest({
       repo_path: "/example/project",
       baseRef: "main",
-      validationCommands: ["npm test"],
     });
 
     expect(result).toEqual({
       repositoryPath: "/example/project",
       baseRef: "main",
-      validationCommands: ["npm test"],
+      validationCommands: [],
     });
+  });
+
+  it("does not forward unexpected validation commands", () => {
+    const input = {
+      repo_path: "/example/project",
+      validationCommands: ["npm test"],
+    };
+
+    const result = toReviewRequest(input);
+
+    expect(result.validationCommands).toEqual([]);
   });
 });

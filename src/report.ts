@@ -12,8 +12,13 @@ export function markdownReport(input: ReportInput): string {
     lines.push(`- ${file.path} (${file.status})`);
   }
   lines.push("", "## Validation output");
-  for (const result of input.validationResults) {
-    lines.push(`### ${result.command}`, "```", result.output, "```");
-  }
+for (const result of input.validationResults) {
+  lines.push(
+    `### ${result.command} — ${result.status.toUpperCase()}`,
+    "```text",
+    result.output,
+    "```",
+  );
+}
   return lines.join("\n");
 }

@@ -13,4 +13,19 @@ describe("markdownReport", () => {
     expect(report).toContain("npm test");
     expect(report).toContain("ok");
   });
+  it("shows passed and failed validation statuses", () => {
+    const report = markdownReport({
+      repositoryPath: "/work/sample",
+      changedFiles: [],
+      validationResults: [
+        { command: "npm test", status: "passed", output: "Tests passed" },
+        { command: "npm run build", status: "failed", output: "Build failed" },
+      ],
+    });
+
+    expect(report).toContain("### npm test — PASSED");
+    expect(report).toContain("### npm run build — FAILED");
+    expect(report).toContain("Tests passed");
+    expect(report).toContain("Build failed");
+  });
 });
